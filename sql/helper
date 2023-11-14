@@ -1,0 +1,38 @@
+Один-ко-многим: У пользователя может быть выставлены оценки для множества фильмов и сериалов,
+каждый фильм/сериал может быть оценен многими пользователями. Это отношение также верно для связи
+пользователя и его предпочтений (актеры, режиссеры, производители, жанры, сценаристы). Каждый фильм/сериал
+может быть связан только с одним сценаристом, режиссером и производителем, но каждый сценарист, режиссер и
+производитель может быть связан с множеством фильмов/сериалов.
+
+Многие-ко-многим: Связи между пользователями и фильмами (и сериалами), которые они смотрят - это
+отношение многие-ко-многим, поскольку один пользователь может смотреть несколько фильмов и
+каждый фильм может быть просмотрен несколькими пользователями.
+
+
+-- Таблица фильмов
+CREATE TABLE Movies (
+                        movie_id INT PRIMARY KEY,
+                        title VARCHAR(100),
+                        director_id INT,
+                        writer_id INT,
+                        production_company_id INT,
+                        overall_rating FLOAT,
+                        release_date TIMESTAMP,
+                        FOREIGN KEY (director_id) REFERENCES Directors(director_id),
+                        FOREIGN KEY (writer_id) REFERENCES Writers(writer_id),
+                        FOREIGN KEY (production_company_id) REFERENCES ProductionCompanies(production_company_id)
+);
+
+-- Таблица «Сериалы»
+CREATE TABLE Series (
+                        series_id INT PRIMARY KEY,
+                        title VARCHAR(100),
+                        director_id INT,
+                        writer_id INT,
+                        production_company_id INT,
+                        overall_rating FLOAT,
+                        release_date TIMESTAMP,
+                        FOREIGN KEY (director_id) REFERENCES Directors(director_id),
+                        FOREIGN KEY (writer_id) REFERENCES Writers(writer_id),
+                        FOREIGN KEY (production_company_id) REFERENCES ProductionCompanies(production_company_id)
+);
